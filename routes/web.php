@@ -35,6 +35,7 @@ Route::middleware(AdminAuth::class)->prefix("dash")->group(function(){
     Route::resource("admin" , AdminController::class);
     Route::resource("cat" , CatController::class );
     Route::resource("product" , ProductController::class );
+    Route::delete('/product-image/{id}', [ProductController::class, 'deleteImage'])->name('product.image.delete');
 
 
    // logout

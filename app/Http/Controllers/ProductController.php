@@ -8,6 +8,8 @@ use App\Models\product;
 use App\Models\image;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -66,7 +68,11 @@ class ProductController extends Controller
      */
     public function edit(product $product)
     {
-        return view('dashboard.pages.product.edit' );
+        $product->load(['cat' , 'images']);
+        // return response()->json($product);
+        $cats = cat::all();
+        return view('dashboard.pages.product.edit' , compact('product' , 'cats'));
+
     }
 
     /**
@@ -74,7 +80,30 @@ class ProductController extends Controller
      */
     public function update(Request $request, product $product)
     {
-        //
+        // return $request ;
+        // dd($request->file('img'));
+
+        $newDataP=$request->except('_token' , '_method');
+
+        if($request->hasfile('img')){
+
+            foreach ($request->file('img') as $file) {
+                $path=$file->store('product_image' , 'public');
+
+                $product->images()->create([
+                  'name' => $path ,
+                ]);
+            }
+        }
+
+        $product->update($newDataP);
+        return to_route('product.index');
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'success update',
+        // ]);
+
+
     }
 
     /**
@@ -88,6 +117,17 @@ class ProductController extends Controller
         }
 
         $product->delete();
+        return to_route('product.index');
+    }
+
+    public function deleteImage($id){
+        $image=image::findOrfail($id);
+
+        if(Storage::disk('public')->exists($image->name)){
+            Storage::disk('public')->delete($image->name);
+        }
+
+        $image->delete();
         return to_route('product.index');
     }
 }
