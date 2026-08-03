@@ -4,6 +4,31 @@
 
 
  <style>
+
+    .customer{
+        min-width: 180px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 0.5rem 1rem ;
+        background-color: #ffffff;
+        font-size: 0.9rem ;
+        color: #334155;
+        cursor: pointer;
+        box-shadow: 0 1px rgba(0,0,0,0.05);
+    }
+    .customer:hover{
+        border-color:#6366f1;
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+    }
+    .customer option{
+        font-size: 0.95rem;
+        color: #444a6c;
+        background-color: #ffffff;
+        padding: 10px;
+    }
+    .customer option:hover{
+        background-color: #f1f3f9;
+    }
     .rivo-table td,
     .rivo-table th{
         vertical-align: middle ;
@@ -92,17 +117,23 @@
           <a href="{{route('product.create')}}" class="btn btn-rivo-primary"><i class="bi bi-plus-lg me-2"></i>Add Product</a>
         </div>
 
-        <div class="rivo-filter-bar">
-          <div class="rivo-search-inline">
+        <div class="rivo-filter-bar d-flex align-items-center  mb-4 gap-3">
+          <div class="rivo-search-inline flex-1">
             <i class="bi bi-search"></i>
             <input type="search" placeholder="Search products...">
           </div>
-          <select class="form-select" style="width: auto;">
-            <option>All Categories</option>
-            <option>Electronics</option>
+          <div style="min-width: 200px;">
+          <select class="form-select customer " style="width: auto;">
+            <option value="">All categories</option>
+            @foreach ($cat as $option )
+               <option value="{{ $option->id }}">{{$option->name}}</option>
+
+            @endforeach
+            {{-- <option>Electronics</option>
             <option>Fashion</option>
-            <option>Home</option>
+            <option>Home</option> --}}
           </select>
+          </div>
         </div>
 
         <div class="rivo-card">
@@ -166,6 +197,9 @@
               </tbody>
             </table>
           </div>
+        </div>
+        <div class=" d-flex justify-content-center my-4  ">
+            {{$productData->links()}}
         </div>
       </main>
 

@@ -142,6 +142,7 @@
                 <ul>
                   <li><a class="cart-icon cart-btn" href="wishlist.html"><span class="icon-heart"></span></a></li>
                   <li>
+
                     <a href="#" class="cart-icon cart-btn"><i class="icon-basket"></i><span class="cart-label">3</span></a>
                     <div class="cart-box">
                       <div class="popup-container">

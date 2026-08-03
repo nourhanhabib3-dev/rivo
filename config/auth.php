@@ -43,6 +43,8 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        
+        // admin
         'dash' => [
             'driver' => 'session',
             'provider' => 'admins',

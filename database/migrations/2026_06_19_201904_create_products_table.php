@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('price' , 8,2);
             $table->integer('sale');
             $table->string('brand');
-            $table->foreignId('cat_id')->constrained('cats')->onDelete('restrict');
+            $table->foreignId('cat_id')->constrained('cats')->onDelete('cascade');
             $table->timestamps();
         });
     }

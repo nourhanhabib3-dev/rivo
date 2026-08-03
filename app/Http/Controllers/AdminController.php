@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AdminRequest;
 use App\Models\admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -13,7 +14,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $adminData=admin::all();
+        $adminData=admin::latest()->paginate(5);
         return view('dashboard.pages.admin.view' , compact('adminData') );
     }
 
@@ -73,7 +74,10 @@ class AdminController extends Controller
      */
     public function destroy(admin $admin)
     {
-        unlink(storage_path("app/public/$admin->img"));
+        if($admin->img){
+            Storage::disk('public')->delete($admin->img);
+        }
+        // unlink(storage_path("app/public/$admin->img"));
         $admin->delete();
         return to_route('admin.index');
 

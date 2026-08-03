@@ -18,8 +18,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $productData= product::with(['cat' , 'images'])->get();
-        return view('dashboard.pages.product.view' , compact('productData'));
+        $productData= product::with(['cat' , 'images'])->latest()->paginate(5);
+        $cat=cat::all();
+        return view('dashboard.pages.product.view' , compact('productData' , 'cat'));
     }
 
     /**

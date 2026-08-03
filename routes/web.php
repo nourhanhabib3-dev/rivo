@@ -5,6 +5,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CatController;
 use App\Http\Controllers\ecomController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserDashController;
 use App\Http\Middleware\AdminAuth;
 use App\Http\Middleware\ecomAuth;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +38,11 @@ Route::middleware(AdminAuth::class)->prefix("dash")->group(function(){
     Route::resource("cat" , CatController::class );
     Route::resource("product" , ProductController::class );
     Route::delete('/product-image/{id}', [ProductController::class, 'deleteImage'])->name('product.image.delete');
+    Route::resource("user" , UserDashController::class)->names([
+        'index' => 'dash.users.index' ,
+        'create' => 'dash.users.create' ,
+        'destroy' => 'dash.users.delete'
+    ]);
 
 
    // logout

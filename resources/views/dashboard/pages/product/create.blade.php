@@ -17,18 +17,32 @@
           <form action="{{route('product.store')}}" method="POST" enctype="multipart/form-data" >
             @csrf
             <div class="row g-4">
-              <div class="col-lg-4">
+
+
+                <div class="col-md-4">
+                    @error('img') <p style="color: red" >{{$message}}</p> @enderror
+                    <label class="d-block mb-2 fw-semibold">Profile Image</label>
+                    <input type="file" class="d-none"  name="img[]" multiple>
+                    <div class="rivo-upload">
+                      <i class="bi bi-cloud-arrow-up d-block"></i>
+                      <p class="rivo-upload__text mb-1">Click to upload image</p>
+                      <small class="text-muted">PNG, JPG up to 2MB</small>
+                    </div>
+              </div>
+              {{-- <div class="col-lg-4">
                 @error('img')
                   <p style="color: red">{{$message}}</p>
                 @enderror
-                <label class="d-block mb-2 fw-semibold">Product Image</label>
-                <input value="{{old('img')}}" type="file" class="d-none" name="img[]" multiple >
+
+                <label for="p-img" class="d-block mb-2 fw-semibold">Product Image</label>
+                <input  value="" type="file"  name="img[]" multiple >
                 <div class="rivo-upload">
                   <i class="bi bi-image d-block"></i>
                   <p class="rivo-upload__text mb-1">Upload product image</p>
                   <small class="text-muted">Recommended 800x800px</small>
                 </div>
-              </div>
+              </div> --}}
+
               <div class="col-lg-8">
                 <div class="rivo-form-group">
                     @error('name')

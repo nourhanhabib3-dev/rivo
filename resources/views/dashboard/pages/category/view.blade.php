@@ -18,12 +18,12 @@
 
 
         <!-- Admins Table -->
-        <div class="rivo-card">
+        <div class="rivo-card" style="max-width: 500px ">
           <div class="rivo-card__header">
             <h3 class="rivo-card__title">All Categoreis</h3>
           </div>
           <div class="table-responsive">
-            <table class="table rivo-table mb-0">
+            <table class="table rivo-table mb-0  table-sm table-borde ">
               <thead>
                 <tr>
                   <th>Name</th>
@@ -33,15 +33,32 @@
               <tbody>
                 @foreach ( $catData as $value )
                 <tr>
-                  <td>{{$value->name}}</td>
-
-                  <td class="d-flex">
-                    <a href="{{route('cat.edit' , $value->id)}}" class="rivo-action-btn"><i class="bi bi-pencil"></i></button>
-                    <form action="{{route('cat.destroy' , $value->id)}}" method="POST">
-                        @csrf
-                        @method('delete')
-                        <button class="rivo-action-btn"><i class="bi bi-shield"></i></button>
-                    </form>
+                  <td><strong>{{$value->name}}</strong></td>
+                  <td class="align-middle text-center col-1 ">
+                        <div class="d-inline-flex gap-2 ">
+                          <a href="{{route('cat.edit' , $value->id)}}" class="rivo-action-btn ">
+                          <i class="bi bi-pencil"></i>
+                        </a>
+                        <form action="{{route('cat.destroy' , $value->id)}}" method="POST" class="d-inline-block m-0 p-0">
+                            @csrf
+                            @method('delete')
+                            <button class="rivo-action-btn danger " onclick="return confirm('are you sure want to delete this product')">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                            {{-- <a href="{{route('cat.edit' , $value->id)}}"
+                                 class=" btn btn-sm btn-primary text-white border-0 rounded-2 p-2 d-flex align-items-center justify-content-center ">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <form action="{{route('cat.destroy' , $value->id)}}" method="POST" class="m-0 p-0 d-inline">
+                                @csrf
+                                @method('delete')
+                               <button
+                                 class=" btn btn-sm btn-danger text-denger border-0 rounded-2 p-2 d-flex align-items-center justify-content-center " onclick="return confirm('are you sure want to delete this product')">
+                                 <i class="bi bi-trash "></i>
+                                </button>
+                            </form> --}}
+                        </div>
                   </td>
                 </tr>
                 @endforeach

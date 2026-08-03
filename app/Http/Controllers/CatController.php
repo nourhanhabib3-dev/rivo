@@ -12,7 +12,7 @@ class CatController extends Controller
      */
     public function index()
     {
-        $catData = Cat::all();
+        $catData = Cat::latest()->paginate(5);
         return view('dashboard.pages.category.view' , compact('catData'));
     }
 
