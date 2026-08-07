@@ -129,6 +129,11 @@ class ProductController extends Controller
         }
 
         $image->delete();
-        return to_route('product.index');
+        // return to_route('product.index');
+        return response()->json([
+            "success" => true ,
+            "message" => "product delete successfuly"
+
+        ]);
     }
 }

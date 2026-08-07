@@ -79,7 +79,13 @@ class AdminController extends Controller
         }
         // unlink(storage_path("app/public/$admin->img"));
         $admin->delete();
-        return to_route('admin.index');
+        // return to_route('admin.index');
+
+        return response()->json([
+            "success"=> true,
+            "message" => 'Admin delete successfuly'
+
+        ]);
 
     }
 }

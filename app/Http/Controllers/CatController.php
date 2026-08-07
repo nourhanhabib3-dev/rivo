@@ -73,6 +73,11 @@ class CatController extends Controller
     public function destroy(cat $cat)
     {
         $cat->delete();
-        return to_route('cat.index');
+        // return to_route('cat.index');
+        return response()->json([
+            "success"=> true ,
+            "mesage"=>"successfully"
+
+        ]);
     }
 }

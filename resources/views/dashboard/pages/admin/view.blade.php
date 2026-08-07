@@ -90,15 +90,15 @@
                     <a href="{{route('admin.edit' , $value->id)}}" class="rivo-action-btn ">
                         <i class="bi bi-pencil"></i>
                     </a>
-                        <form action="{{route('admin.destroy' , $value->id)}}" method="POST" class="d-inline-block m-0 p-0">
+                        <form action="{{route('admin.destroy' , $value->id)}}"
+                              method="POST" class="d-inline-block m-0 p-0 delete_form">
                             @csrf
                             @method('delete')
-                            <button class="rivo-action-btn danger " onclick="return confirm('Are you sure want to delete this the person')"><i class="bi bi-trash"></i></button>
+                            <button class="rivo-action-btn danger btn_delete " type="button" data_url={{route('admin.destroy' , $value->id)}} data_id={{$value->id}} onclick="return confirm('Are you sure want to delete this the person')"><i class="bi bi-trash"></i></button>
                         </form>
                   </td>
                 </tr>
                 @endforeach
-
               </tbody>
             </table>
           </div>
@@ -107,6 +107,35 @@
             {{$adminData->links()}}
         </div>
       </main>
-
 @endsection
+
+@push('script')
+  <script>
+    $(document).on('click' , '.btn_delete' , function(e){
+        e.preventDefault();
+        var admin_id = $(this).attr('data_id');
+        var dataUrl = $(this).attr('data_url');
+        var _token = "{{csrf_token()}}"
+        var row = $(this).closest('tr');
+
+          $.ajax({
+            url:dataUrl,
+            method:"POST",
+            data:{
+                _token:_token,
+                _method:'DELETE'
+            },
+            success:function(x){
+                row.remove();
+                // alert('successfully');
+            },
+            error:function(y){
+                alert('try agin');
+            }
+          })
+    })
+
+  </script>
+
+@endpush
 

@@ -189,7 +189,13 @@
                         <form action="{{route('product.destroy' , $value->id)}}" method="POST" class="d-inline-block m-0 p-0">
                             @csrf
                             @method('delete')
-                            <button class="rivo-action-btn danger " onclick="return confirm('are you sure want to delete this product')"><i class="bi bi-trash"></i></button>
+                            <button class="rivo-action-btn danger btn_delete "
+                                type="button"
+                                btn_url="{{route('product.destroy' , $value->id)}}"
+                                btn_id={{$value->id}}
+                                onclick="return confirm('are you sure want to delete this product')">
+                                <i class="bi bi-trash"></i>
+                            </button>
                         </form>
                     </td>
                 </tr>
@@ -204,4 +210,37 @@
       </main>
 
 @endsection
+
+@push('script')
+<script>
+    $(document).on('click' , '.btn_delete' , function(e){
+        e.preventDefault();
+        var url = $(this).attr('btn_url');
+        var pro_id = $(this).attr('btn_id');
+        var row = $(this).closest('tr');
+        var _token = "{{csrf_token()}}";
+
+        $.ajax({
+            url:url,
+            method:"POST",
+            data:{
+                _method:'DELETE',
+                _token: _token
+            },
+            success:function(x){
+                row.remove();
+                // alert('successfully');
+
+            },
+            error:function(y){
+                alert('try agin');
+            }
+
+        })
+    })
+</script>
+
+
+
+@endpush
 
